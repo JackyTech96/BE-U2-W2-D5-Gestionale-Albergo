@@ -1,0 +1,148 @@
+﻿@model IEnumerable<BE_U2_W2_D5_Albergo.Models.Prenotazione>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex">
+    <h2 style="margin-right:auto">Lista Prenotazioni</h2>
+
+    <p>
+        @Html.ActionLink("Aggiungi prenotazione", "Create", null, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff;" })
+    </p>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.IDCliente)</th>
+                <th>@Html.DisplayNameFor(model => model.IDCamera)</th>
+                <th>@Html.DisplayNameFor(model => model.CodiceFiscaleCliente)</th>
+                <th>@Html.DisplayNameFor(model => model.NumeroCamera)</th>
+                <th>@Html.DisplayNameFor(model => model.DataPrenotazione)</th>
+                <th>@Html.DisplayNameFor(model => model.NumeroProgressivoAnno)</th>
+                <th>@Html.DisplayNameFor(model => model.Anno)</th>
+                <th>@Html.DisplayNameFor(model => model.PeriodoDal)</th>
+                <th>@Html.DisplayNameFor(model => model.PeriodoAl)</th>
+                <th>@Html.DisplayNameFor(model => model.CaparraConfirmatoria)</th>
+                <th>@Html.DisplayNameFor(model => model.TariffaApplicata)</th>
+                <th>@Html.DisplayNameFor(model => model.MezzaPensione)</th>
+                <th>@Html.DisplayNameFor(model => model.PensioneCompleta)</th>
+                <th>@Html.DisplayNameFor(model => model.PernottamentoConColazione)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IDCliente)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IDCamera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CodiceFiscaleCliente)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NumeroCamera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DataPrenotazione)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NumeroProgressivoAnno)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Anno)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PeriodoDal)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PeriodoAl)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CaparraConfirmatoria)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TariffaApplicata)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MezzaPensione)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PensioneCompleta)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PernottamentoConColazione)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Dettagli", "Details", new { id = item.IDPrenotazione }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Servizi", "Create", "ServizioAggiuntivo", null, new { id = item.IDPrenotazione })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex my-3">
+    <div style="margin-right:auto">
+        <input type="text" id="codiceFiscaleInput" />
+        <button onclick="ricercaPerCodiceFiscale()">Cerca per Codice Fiscale</button>
+    </div>
+
+    <button class="me-3" onclick="ricercaPrenotazioniPensioneCompleta()">Cerca prenotazioni con 'Pensione Completa'</button>
+
+    <!-- Aggiungi il contenitore per i risultati della ricerca -->
+    <div id="risultatoRicerca2"></div>
+</div>
+
+<!-- Aggiungi il contenitore per i risultati della ricerca -->
+<div id="risultatoRicerca"></div>
+
+
+
+
+
+
+
+<!-- Separazione del blocco di script -->
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function ricercaPerCodiceFiscale() {
+            var codiceFiscale = $("#codiceFiscaleInput").val();
+
+            $.ajax({
+                url: "/Prenotazione/RicercaPerCodiceFiscale",
+                type: "GET",
+                data: { codiceFiscale: codiceFiscale },
+                success: function (result) {
+                    // Svuota il contenuto precedente del div
+                    $("#risultatoRicerca").empty();
+
+                    // Crea una nuova tabella e aggiungila al div
+                    var table = $("<table class='table'>");
+                    var thead = $("<thead>").append("<tr><th>ID Prenotazione</th><th>ID Cliente</th><th>Numero Camera</th><th>Caparra</th><th>Tariffa</th></tr>");
+                    var tbody = $("<tbody>");
+
+                    // Aggiungi i dati della prenotazione alla tabella
+                    $.each(result, function (index, prenotazione) {
+                        var row = $("<tr>").append(
+                            "<td>" + prenotazione.IDPrenotazione + "</td>" +
+                            "<td>" + prenotazione.IDCliente + "</td>" +
+                            "<td>" + prenotazione.NumeroCamera + "</td>" +
+                            "<td>" + prenotazione.CaparraConfirmatoria + "</td>" +
+                            "<td>" + prenotazione.TariffaApplicata + "</td>"
+                        );
+                        tbody.append(row);
+                    });
+
+                    // Aggiungi la tabella al div
+                    table.append(thead).append(tbody);
+                    $("#risultatoRicerca").append(table);
+                },
+                error: function (error) {
+                    console.error("Errore durante la chiamata Ajax: ", error);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function ricercaPrenotazioniPensioneCompleta() {
+            $.ajax({
+                url: "/Prenotazione/RicercaPrenotazioniPensioneCompleta",
+                type: "GET",
+                success: function (result) {
+                    // Svuota il contenuto precedente del div
+                    $("#risultatoRicerca2").empty();
+
+                    // Mostra il conteggio nel div
+                    $("#risultatoRicerca2").text("Numero totale di prenotazioni con 'Pensione Completa': " + result.count);
+                },
+                error: function (error) {
+                    console.error("Errore durante la chiamata Ajax: ", error);
+                }
+            });
+        }
+    </script>
+}

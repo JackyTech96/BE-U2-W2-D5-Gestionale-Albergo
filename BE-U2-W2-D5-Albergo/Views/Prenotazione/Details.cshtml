@@ -1,0 +1,104 @@
+﻿@model BE_U2_W2_D5_Albergo.Models.Prenotazione
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Checkout</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroCamera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCamera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodoDal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodoDal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodoAl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodoAl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaparraConfirmatoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaparraConfirmatoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TariffaApplicata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TariffaApplicata)
+        </dd>
+
+        <dt>
+            Servizi Aggiuntivi
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var servizio in Model.ServiziAggiuntivi)
+                {
+                    <li>
+                        @if (servizio.ColazioneInCamera)
+                        {
+                            <span>Colazione in Camera - Prezzo: @servizio.Prezzo</span>
+                        }
+
+                        @if (servizio.BevandeMinibar)
+                        {
+                            <span>Bevande Minibar - Prezzo: @servizio.Prezzo</span>
+                        }
+
+                        @if (servizio.Internet)
+                        {
+                            <span>Internet - Prezzo: @servizio.Prezzo</span>
+                        }
+
+                        @if (servizio.LettoAggiuntivo)
+                        {
+                            <span>Letto Aggiuntivo - Prezzo: @servizio.Prezzo</span>
+                        }
+
+                        @if (servizio.Culla)
+                        {
+                            <span>Culla - Prezzo: @servizio.Prezzo</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </dd>
+
+        <dt>
+            Importo Totale (con Servizi Aggiuntivi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImportoDaSaldare)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

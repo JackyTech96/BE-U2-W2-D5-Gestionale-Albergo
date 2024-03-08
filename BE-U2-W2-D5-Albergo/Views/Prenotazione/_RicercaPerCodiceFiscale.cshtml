@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "_RicercaPerCodiceFiscale";
+}
+
+<h2>_RicercaPerCodiceFiscale</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Prenotazione</th>
+            <th>ID Cliente</th>
+            <!-- Altri campi della prenotazione che desideri visualizzare -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prenotazione in Model)
+        {
+            <tr>
+                <td>@prenotazione.IDPrenotazione</td>
+                <td>@prenotazione.IDCliente</td>
+                <!-- Altri campi della prenotazione che desideri visualizzare -->
+            </tr>
+        }
+    </tbody>
+</table>
