@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BE_U2_W2_D5_Albergo.Controllers
 {
+    [Authorize]
     public class PrenotazioneController : Controller
     {
         // GET: Prenotazione
