@@ -28,6 +28,7 @@ namespace BE_U2_W2_D5_Albergo.Models
         public string Citta { get; set; }
 
         [Required(ErrorMessage = "La Provincia è obbligatoria!")]
+        [StringLength(2, ErrorMessage = "La Provincia deve contenere massimo 2 caratteri")]
         public string Provincia { get; set; }
 
         [Required(ErrorMessage = "L'Email è obbligatoria!")]

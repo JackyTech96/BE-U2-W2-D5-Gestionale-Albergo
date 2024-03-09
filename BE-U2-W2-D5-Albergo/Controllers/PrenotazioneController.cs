@@ -235,7 +235,7 @@ namespace BE_U2_W2_D5_Albergo.Controllers
                 }
             }
 
-            // Restituisci la vista parziale con i risultati della ricerca
+            // Restituisci i risultati della ricerca
             return Json(prenotazioni, JsonRequestBehavior.AllowGet);
         }
         public JsonResult RicercaPrenotazioniPensioneCompleta()
