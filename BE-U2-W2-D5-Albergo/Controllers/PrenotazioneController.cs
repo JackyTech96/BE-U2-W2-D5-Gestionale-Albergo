@@ -122,6 +122,105 @@ namespace BE_U2_W2_D5_Albergo.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Edit (int id)
+        {
+            SqlConnection conn = Utility.GetConnection();
+            Prenotazione prenotazione = new Prenotazione();
+
+            try
+            {
+                conn.Open();
+
+                // Ottieni i dettagli della prenotazione per l'ID specificato
+                string query = $"SELECT * FROM Prenotazioni WHERE IDPrenotazione = {id}";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    prenotazione.IDPrenotazione = Convert.ToInt32(reader["IDPrenotazione"]);
+                    prenotazione.IDCliente = Convert.ToInt32(reader["IDCliente"]);
+                    prenotazione.IDCamera = Convert.ToInt32(reader["IDCamera"]);
+                    prenotazione.CodiceFiscaleCliente = reader["CodiceFiscaleCliente"].ToString();
+                    prenotazione.NumeroCamera = Convert.ToInt32(reader["NumeroCamera"]);
+                    prenotazione.DataPrenotazione = Convert.ToDateTime(reader["DataPrenotazione"]);
+                    prenotazione.NumeroProgressivoAnno = Convert.ToInt32(reader["NumeroProgressivoAnno"]);
+                    prenotazione.Anno = Convert.ToInt32(reader["Anno"]);
+                    prenotazione.PeriodoDal = Convert.ToDateTime(reader["PeriodoDal"]);
+                    prenotazione.PeriodoAl = Convert.ToDateTime(reader["PeriodoAl"]);
+                    prenotazione.CaparraConfirmatoria = Convert.ToDecimal(reader["CaparraConfirmatoria"]);
+                    prenotazione.TariffaApplicata = Convert.ToDecimal(reader["TariffaApplicata"]);
+                    prenotazione.MezzaPensione = Convert.ToBoolean(reader["MezzaPensione"]);
+                    prenotazione.PensioneCompleta = Convert.ToBoolean(reader["PensioneCompleta"]);
+                    prenotazione.PernottamentoConColazione = Convert.ToBoolean(reader["PernottamentoConColazione"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Utilizza un logger o Debug.WriteLine per registrare l'errore
+                Debug.WriteLine($"Si è verificato un errore: {ex.Message}");
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return View(prenotazione);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Prenotazione prenotazione)
+        {
+            SqlConnection conn = Utility.GetConnection();
+
+            try
+            {
+                conn.Open();
+
+                string query = "UPDATE Prenotazioni SET IDCliente = @IDCliente, IDCamera = @IDCamera, CodiceFiscaleCliente = @CodiceFiscaleCliente, " +
+                               "NumeroCamera = @NumeroCamera, DataPrenotazione = @DataPrenotazione, NumeroProgressivoAnno = @NumeroProgressivoAnno, " +
+                               "Anno = @Anno, PeriodoDal = @PeriodoDal, PeriodoAl = @PeriodoAl, CaparraConfirmatoria = @CaparraConfirmatoria, " +
+                               "TariffaApplicata = @TariffaApplicata, MezzaPensione = @MezzaPensione, PensioneCompleta = @PensioneCompleta, " +
+                               "PernottamentoConColazione = @PernottamentoConColazione WHERE IDPrenotazione = @IDPrenotazione";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@IDCliente", prenotazione.IDCliente);
+                cmd.Parameters.AddWithValue("@IDCamera", prenotazione.IDCamera);
+                cmd.Parameters.AddWithValue("@CodiceFiscaleCliente", prenotazione.CodiceFiscaleCliente);
+                cmd.Parameters.AddWithValue("@NumeroCamera", prenotazione.NumeroCamera);
+                cmd.Parameters.AddWithValue("@DataPrenotazione", prenotazione.DataPrenotazione);
+                cmd.Parameters.AddWithValue("@NumeroProgressivoAnno", prenotazione.NumeroProgressivoAnno);
+                cmd.Parameters.AddWithValue("@Anno", prenotazione.Anno);
+                cmd.Parameters.AddWithValue("@PeriodoDal", prenotazione.PeriodoDal);
+                cmd.Parameters.AddWithValue("@PeriodoAl", prenotazione.PeriodoAl);
+                cmd.Parameters.AddWithValue("@CaparraConfirmatoria", prenotazione.CaparraConfirmatoria);
+                cmd.Parameters.AddWithValue("@TariffaApplicata", prenotazione.TariffaApplicata);
+                cmd.Parameters.AddWithValue("@MezzaPensione", prenotazione.MezzaPensione);
+                cmd.Parameters.AddWithValue("@PensioneCompleta", prenotazione.PensioneCompleta);
+                cmd.Parameters.AddWithValue("@PernottamentoConColazione", prenotazione.PernottamentoConColazione);
+                cmd.Parameters.AddWithValue("@IDPrenotazione", prenotazione.IDPrenotazione);
+
+                cmd.ExecuteNonQuery();
+
+                TempData["msgSuccess"] = "Prenotazione modificata con successo!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Utilizza un logger o Debug.WriteLine per registrare l'errore
+                Debug.WriteLine($"Si è verificato un errore: {ex.Message}");
+                return View(prenotazione);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
         public ActionResult Details(int id)
         {
             SqlConnection conn = Utility.GetConnection();

@@ -204,6 +204,9 @@
     <Content Include="Views\ServizioAggiuntivo\Create.cshtml" />
     <Content Include="Views\Prenotazione\Details.cshtml" />
     <Content Include="Views\Prenotazione\_RicercaPerCodiceFiscale.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Prenotazione\Edit.cshtml" />
+    <Content Include="Views\Camera\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

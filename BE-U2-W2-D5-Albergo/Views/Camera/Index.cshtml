@@ -4,7 +4,26 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (ViewBag.msgErrore != null)
+{
+    <div class="alert alert-danger fw-bold my-3" role="alert">
+        @ViewBag.msgErrore
+    </div>
+}
+@if (ViewBag.msgSuccess != null)
+{
+    <div class="alert alert-success fw-bold my-3" role="alert">
+        @ViewBag.msgSuccess
+    </div>
+}
+
+<div class="d-flex">
+    <h2 style="margin-right:auto">Lista Camere</h2>
+
+    <p>
+        @Html.ActionLink("Aggiungi cliente", "Create", null, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff;" })
+    </p>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,23 +42,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroCamera)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descrizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipologia)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroCamera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrizione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipologia)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>

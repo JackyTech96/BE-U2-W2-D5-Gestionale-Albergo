@@ -1,0 +1,47 @@
+﻿@model BE_U2_W2_D5_Albergo.Models.Camera
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="d-flex">
+    <h2 style="margin-right:auto">Dettagli della Camera</h2>
+
+    <p>
+        @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff;" })
+    </p>
+</div>
+
+<div>
+    <h4>Camera</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroCamera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCamera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipologia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipologia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.IDCamera }, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff" })
+</p>

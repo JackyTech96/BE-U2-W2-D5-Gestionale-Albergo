@@ -1,7 +1,20 @@
-﻿ @model IEnumerable<BE_U2_W2_D5_Albergo.Models.Cliente>
+﻿@model IEnumerable<BE_U2_W2_D5_Albergo.Models.Cliente>
 
 @{
     ViewBag.Title = "Index";
+}
+
+@if (ViewBag.msgErrore != null)
+{
+    <div class="alert alert-danger fw-bold my-3" role="alert">
+        @ViewBag.msgErrore
+    </div>
+}
+@if (ViewBag.msgSuccess != null)
+{
+    <div class="alert alert-success fw-bold my-3" role="alert">
+        @ViewBag.msgSuccess
+    </div>
 }
 
 <div class="d-flex">
@@ -40,38 +53,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cognome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodiceFiscale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Citta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provincia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cellulare)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IDCliente }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cognome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodiceFiscale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Citta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provincia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cellulare)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { id = item.IDCliente }, new { @class = "btn btn-default" , style = "border-color: #424769" })
+                @Html.ActionLink("Dettagli", "Details", new { id = item.IDCliente }, new { @class = "btn btn-default", style = "border-color: #424769" })
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default", style = "border-color: #424769" })
+            </td>
+        </tr>
+    }
 
 </table>

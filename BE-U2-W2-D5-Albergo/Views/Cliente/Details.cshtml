@@ -4,10 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="d-flex">
+    <h2 style="margin-right:auto">Dettagli del Cliente</h2>
+
+    <p>
+        @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff;" })
+    </p>
+</div>
 
 <div>
-    <h4>Cliente</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -77,6 +82,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.IDCliente }, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff" })
 </p>

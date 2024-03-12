@@ -4,7 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Checkout</h2>
+<div class="d-flex">
+    <h2 style="margin-right:auto">Checkout</h2>
+
+    <p>
+        @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "btn", style = "background-color: #f8b17a; color: #ffffff;" })
+    </p>
+</div>
 
 <div>
     <hr />
@@ -100,5 +106,4 @@
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
 </p>

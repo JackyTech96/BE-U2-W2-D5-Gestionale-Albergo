@@ -4,6 +4,19 @@
     ViewBag.Title = "Create";
 }
 
+@if (ViewBag.msgErrore != null)
+{
+    <div class="alert alert-danger fw-bold text-danger my-3" role="alert">
+        @ViewBag.msgErrore
+    </div>
+}
+@if (ViewBag.msgSuccess != null)
+{
+    <div class="alert alert-success fw-bold text-success my-3" role="alert">
+        @ViewBag.msgSuccess
+    </div>
+}
+
 <div class="d-flex">
     <h2 style="margin-right:auto">Aggiungi Cliente</h2>
 
@@ -13,10 +26,10 @@
 </div>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -86,7 +99,7 @@
 
         <div class="form-group my-3">
             <div class="col-md-offset-2 col-md-10">
-                <input style = "background-color: #f8b17a; color: #ffffff" type="submit" value="Create" class="btn" />
+                <input style="background-color: #f8b17a; color: #ffffff" type="submit" value="Create" class="btn" />
             </div>
         </div>
     </div>

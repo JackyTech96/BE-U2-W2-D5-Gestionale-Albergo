@@ -52,10 +52,10 @@
                     <td>@Html.DisplayFor(modelItem => item.PensioneCompleta)</td>
                     <td>@Html.DisplayFor(modelItem => item.PernottamentoConColazione)</td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Dettagli", "Details", new { id = item.IDPrenotazione }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Servizi", "Create", "ServizioAggiuntivo", null, new { id = item.IDPrenotazione })
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.IDPrenotazione }, new { @class = "btn btn-default", style = "border-color: #424769" })
+                        @Html.ActionLink("Checkout", "Details", new { id = item.IDPrenotazione }, new { @class = "btn btn-default my-3", style = "border-color: #424769" })
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default mb-3", style = "border-color: #424769" })
+                        @Html.ActionLink("Servizi", "Create", "ServizioAggiuntivo", new { id = item.IDPrenotazione }, new { @class = "btn btn-default", style = "border-color: #424769" })
                     </td>
                 </tr>
             }

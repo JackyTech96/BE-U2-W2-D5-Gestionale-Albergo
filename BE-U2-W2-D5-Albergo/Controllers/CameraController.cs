@@ -94,5 +94,41 @@ namespace BE_U2_W2_D5_Albergo.Controllers
                 conn.Close();
             }
         }
+
+        // GET: Camera/Details/5
+        public ActionResult Details(int id)
+        {
+            SqlConnection conn = Utility.GetConnection();
+            Camera camera = new Camera();
+
+            try
+            {
+                conn.Open();
+
+                string query = $"SELECT * FROM Camere WHERE IDCamera = {id}";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    camera.IDCamera = Convert.ToInt32(reader["IDCamera"]);
+                    camera.NumeroCamera = Convert.ToInt32(reader["NumeroCamera"]);
+                    camera.Descrizione = reader["Descrizione"].ToString();
+                    camera.Tipologia = reader["Tipologia"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Utilizza un logger o Debug.WriteLine per registrare l'errore
+                Debug.WriteLine($"Si è verificato un errore: {ex.Message}");
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            ViewBag.msgSuccess = TempData["msgSuccess"];
+            return View(camera);
+        }
     }
 }
